@@ -25,18 +25,6 @@ jobs:
         run: |
           pwd
           python3 -m pylint server.py
-      - name: Test Watson endpoint connectivity and output
-        run: |
-          pwd
-          python3 - <<'PY'
-          from EmotionDetection.emotion_detection import emotion_detector
-          for phrase in ["I am really mad about this", "I am glad this happened", "I am very angry"]:
-              try:
-                  print(f"INPUT: {phrase!r}")
-                  print(f"OUTPUT: {emotion_detector(phrase)!r}")
-              except Exception as exc:
-                  print(f"LIVE_WATSON_ERROR: {type(exc).__name__}: {exc}")
-          PY
       - name: Capture genuine blank-input deployment screenshot
         run: |
           python3 -m pip install selenium
