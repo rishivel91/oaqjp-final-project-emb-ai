@@ -37,3 +37,12 @@ jobs:
               except Exception as exc:
                   print(f"LIVE_WATSON_ERROR: {type(exc).__name__}: {exc}")
           PY
+      - name: Capture genuine blank-input deployment screenshot
+        run: |
+          python3 -m pip install selenium
+          python3 scripts/capture_error_screenshot.py
+      - name: Upload screenshot evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployment-error-screenshot
+          path: 7c_error_handling_interface.png
