@@ -1,0 +1,27 @@
+name: Verify emotion detection project
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install project dependencies
+        run: python3 -m pip install -r requirements.txt
+      - name: Run unit tests
+        run: |
+          pwd
+          python3 -m unittest test_emotion_detection.py -v
+      - name: Run Pylint on Flask server
+        run: |
+          pwd
+          python3 -m pylint server.py
